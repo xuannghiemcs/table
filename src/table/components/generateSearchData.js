@@ -19,18 +19,22 @@ export default function generateSearchData(tableData, tableKey,
 
         for(let j = 0; j < keyLength; j++){
 
-          data = String(tableData[i][tableKey[j]["key"]]);
+
+
+          data = String(tableData[i][tableKey[j]["key"]]).toLowerCase();
           dataLength = data.length;
           if(data){
 
             var tempSearchValue = '';
             for(let n = 0; n < dataLength; n++){
               tempSearchValue += data[n];
-              if(searchValue == tempSearchValue){
+
+              if(searchValue.toLowerCase() == tempSearchValue){
                 tableSearchData.push(tableData[i]);
                 searchCondition = 1;
                 break;
               }
+
             }
 
             if(searchCondition === 1){
@@ -42,6 +46,7 @@ export default function generateSearchData(tableData, tableKey,
         }
       }
     }
+
 
     return (tableSearchData);
 

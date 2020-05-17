@@ -26,6 +26,7 @@ export default class Table extends Component {
       tableSortDirections: sourceFile,
       searchValue: '',
       activePaginationButton: 0,
+      newSearchCondition: 0,
 
     };
 
@@ -63,7 +64,7 @@ export default class Table extends Component {
   handleSearchChanges(e){
 
 
-    this.setState({searchValue: e.target.value});
+    this.setState({searchValue: e.target.value, newSearchCondition: 1});
 
 
   }
@@ -81,7 +82,6 @@ export default class Table extends Component {
 
     var page = this.state.activePaginationButton + e;
 
-    console.log(e, page);
     if(page >= 0 && page < paginationLength){
 
       this.setState({activePaginationButton: page});
@@ -103,11 +103,17 @@ export default class Table extends Component {
       copyData = generateSearchData(tableData, tableKey,
         this.state.searchValue);
 
+        if(this.state.newSearchCondition === 1){
+          this.state.activePaginationButton = 0;
+          this.state.newSearchCondition = 0;
+        }
+
       } else {
 
         copyData = tableData;
 
       }
+
 
       var pagination = generatePagination(copyData.length, 10,
         this.state.activePaginationButton, this.handlePaginationButton,
@@ -116,6 +122,8 @@ export default class Table extends Component {
 
         var  actualTableData = [];
         var initialTableData = this.state.activePaginationButton*10;
+
+
 
         for(let i = initialTableData; i < initialTableData + 10; i++){
           if(copyData[i]){
