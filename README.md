@@ -2,4 +2,4 @@ npm install
 npm start
 
 
-https://cherry-pick-1.herokuapp.com/
+https://testing-table.herokuapp.com/
